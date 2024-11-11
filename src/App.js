@@ -6,6 +6,7 @@ import MusicPlayer from "./components/MusicPlayer";
 
 const App = () => {
   const [openMenu, setOpenMenu] = useState(false);
+  const [songId, setSongId] = useState(0);
 
   function handleToggleMenu() {
     setOpenMenu(!openMenu);
@@ -14,12 +15,12 @@ const App = () => {
   return (
     <div className="flex justify-center items-center w-[98vw] h-[100vh]">
       <Sidebar openMenu={openMenu} setOpenMenu={setOpenMenu} />
-      <div className="bg-[#3b0000] h-full text-white overflow-y-auto scrollbar mobile:w-[100%] sm:w-[100%] lg:w-full xl:w-[63%]">
+      <div className="bg-[#3b0000] h-full text-white overflow-y-auto scrollbar mobile:w-[100%] sm:w-[100%] lg:w-full xl:w-[58%]">
         <Navbar />
-        <MusicPage />
+        <MusicPage setSongId={setSongId}/>
       </div>
-      <div className="bg-black text-white relative w-[18%] h-full flex flex-col justify-end items-center">
-        <MusicPlayer />
+      <div className="bg-black text-white relative w-[20%] h-full flex flex-col justify-end items-center">
+        <MusicPlayer songId={songId} setSongId={setSongId}/>
       </div>
     </div>
   );

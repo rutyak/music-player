@@ -13,7 +13,7 @@ const Sidebar = ({ openMenu }) => {
     <div
       className={`left-0 top-0 h-screen bg-black text-white flex flex-col justify-between p-6 transform transition-transform duration-300 ${
         openMenu ? "translate-x-0" : "-translate-x-full"
-      } mobile:w-[13%] sm:w-[10%] md:w-[13%] lg:w-[10%] xl:w-[19%] xl:translate-x-0`}
+      } mobile:w-[13%] sm:w-[10%] md:w-[13%] lg:w-[10%] xl:w-[22%] xl:translate-x-0`}
     >
       <div>
         <div className="flex items-center space-x-2 mb-12">
