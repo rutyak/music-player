@@ -15,7 +15,6 @@ const SortableItem = ({ id, index, song, setSongId }) => {
   };
 
   const handleClick = (e) => {
-
     e.preventDefault();
     setSongId(song._id);
   };
