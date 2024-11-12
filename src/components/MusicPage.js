@@ -70,12 +70,12 @@ const MusicPage = ({ songId, setSongId }) => {
               >
                 <table className="w-full px-16 table-auto text-left">
                   <thead>
-                    <tr className="lg:text-md text-gray-300">
-                      <th className="py-2 pr-4">#</th>
-                      <th className="py-2 px-4">Title</th>
-                      <th className="py-2 px-4">Playing</th>
-                      <th className="py-2 px-4">Time</th>
-                      <th className="py-2 pl-4 text-right">Album</th>
+                    <tr className="lg:text-sm text-gray-300">
+                      <th className="py-2 pr-4 pl-20">#</th>
+                      <th className="py-2 px-4">TITLE</th>
+                      <th className="py-2 px-4">PLYAING</th>
+                      <th className="py-2 px-4">TIME</th>
+                      <th className="py-2 pl-4 pr-20 text-right">ALBUM</th>
                     </tr>
                   </thead>
                   <tbody className="w-full lg:text-md text-white">

@@ -11,14 +11,14 @@ import {
 const Sidebar = ({ openMenu }) => {
   return (
     <div
-      className={`left-0 top-0 h-screen bg-black text-white flex flex-col justify-between items-center p-6 transform transition-transform duration-300 ${
+      className={`left-0 top-0 h-screen bg-black text-white flex flex-col justify-between items-center p-5 transform transition-transform duration-300 ${
         openMenu ? "translate-x-0" : "-translate-x-full"
       } mobile:w-[13%] sm:w-[10%] md:w-[13%] lg:w-[10%] xl:w-[22%] xl:translate-x-0`}
     >
       <div className="relative">
         <div className="flex items-center justify-center gap-3 space-x-2 mb-12">
-          <FaMusic className="text-red-500 text-4xl" />
-          <h1 className="text-2xl font-semibold text-red-500">
+          <FaMusic className="text-red-500 text-[45px]" />
+          <h1 className="text-[25px] font-semibold text-red-500">
             Dream<span className="text-white">Music</span>
           </h1>
         </div>
