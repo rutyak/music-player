@@ -15,12 +15,15 @@ const App = () => {
   return (
     <div className="flex justify-center items-center w-[98vw] h-[100vh]">
       <Sidebar openMenu={openMenu} setOpenMenu={setOpenMenu} />
-      <div className="bg-[#3b0000] h-full text-white overflow-y-auto scrollbar mobile:w-[100%] sm:w-[100%] lg:w-full xl:w-[58%]">
+      <div className="bg-gradient-to-b from-[#4C0000] to-[#0A0A0A] h-full text-white overflow-y-auto scrollbar mobile:w-[100%] sm:w-[100%] lg:w-full xl:w-[57%]">
         <Navbar />
-        <MusicPage setSongId={setSongId}/>
+        <MusicPage songId={songId} setSongId={setSongId} />
       </div>
-      <div className="bg-black text-white relative w-[20%] h-full flex flex-col justify-end items-center">
-        <MusicPlayer songId={songId} setSongId={setSongId}/>
+      <div
+        className="text-white relative w-[21%] h-full flex flex-col justify-end items-center"
+        style={{ backgroundColor: "#210A0A" }}
+      >
+        <MusicPlayer songId={songId} setSongId={setSongId} />
       </div>
     </div>
   );

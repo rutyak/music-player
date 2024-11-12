@@ -7,6 +7,7 @@ import {
   faForward,
   faRandom,
   faRedo,
+  faRepeat,
 } from "@fortawesome/free-solid-svg-icons";
 import { Howl } from "howler";
 import { songs } from "../config/Constant";
@@ -32,9 +33,6 @@ const MusicPlayer = ({ songId }) => {
     clearInterval(intervalRef.current);
 
     const filteredSong = songs.findIndex((item) => item._id === songId);
-    console.log("filteredSong: ", filteredSong);
-    console.log("song:::: ", songs[filteredSong]);
-
     if (filteredSong !== -1) {
       playSong(filteredSong);
       setSongIndex(filteredSong);
@@ -43,7 +41,6 @@ const MusicPlayer = ({ songId }) => {
 
   // Initialize and play song
   const playSong = (index) => {
-    console.log("index: ", index);
     if (soundRef.current) {
       soundRef.current.stop();
     }
@@ -54,15 +51,13 @@ const MusicPlayer = ({ songId }) => {
       onplay: () => {
         setDuration(sound.duration());
         setIsPlaying(true);
-
-        // Update currentTime every second
         intervalRef.current = setInterval(() => {
           setCurrentTime(sound.seek());
         }, 1000);
       },
       onend: () => nextSong(),
     });
-    
+
     soundRef.current = sound;
     sound.play();
   };
@@ -76,7 +71,6 @@ const MusicPlayer = ({ songId }) => {
     } else {
       if (!soundRef.current) {
         playSong(songIndex);
-        console.log("songIndex: ", songIndex);
       } else {
         soundRef.current.play();
         intervalRef.current = setInterval(() => {
@@ -131,26 +125,35 @@ const MusicPlayer = ({ songId }) => {
   };
 
   return (
-    <div className="absolute bottom-5 min-h-[50%] max-w-[88%] bg-red-900 rounded-2xl p-6 text-white shadow-lg">
-      <p className="font-samibold text-lg mb-4 text-center">Now Playing</p>
+    <div className="absolute bottom-5 h-[41vh] w-[70%] bg-[#681212] rounded-2xl px-6 py-4 text-white shadow-lg">
+      <p className="font-semibold text-sm mb-4 text-center">Now Playing</p>
       <img
         src={songs[songIndex].image}
         alt="Album"
         className="rounded-lg mb-4 w-[200px] h-[100px] object-cover object-top"
       />
       <div className="mb-4">
-        <p className="text-xl font-semibold text-center">{songs[songIndex].title}</p>
-        <p className="text-gray-300 text-sm text-center">{songs[songIndex].artist}</p>
+        <p className="text-sm font-semibold text-center">
+          {songs[songIndex].title}
+        </p>
+        <p className="text-gray-300 text-sm text-center">
+          {songs[songIndex].artist}
+        </p>
       </div>
       <div className="flex items-center justify-between mb-4 text-sm">
         <span>{formatTime(currentTime)}</span>
         <input
           type="range"
-          className="w-2/3 mx-2"
+          className="w-2/3 mx-2 h-1 rounded-full appearance-none focus:outline-none"
           min="0"
           max={duration}
           value={currentTime}
           onChange={handleSliderChange}
+          style={{
+            background: `linear-gradient(to right, white ${
+              (currentTime / duration) * 100
+            }%, rgba(128, 128, 128, 0.5) ${(currentTime / duration) * 100}%)`,
+          }}
         />
         <span>{formatTime(duration)}</span>
       </div>
@@ -159,7 +162,7 @@ const MusicPlayer = ({ songId }) => {
           className="text-white text-xl hover:text-red-300"
           onClick={handleRepeat}
         >
-          <FontAwesomeIcon icon={faRedo} />
+          <FontAwesomeIcon icon={faRepeat} />
         </button>
         <button
           className="text-white text-xl hover:text-red-300"
@@ -168,7 +171,8 @@ const MusicPlayer = ({ songId }) => {
           <FontAwesomeIcon icon={faBackward} />
         </button>
         <button
-          className="text-white text-2xl hover:text-red-300"
+          className="text-white text-2xl"
+          style={{ backgroundColor: "#681212" }}
           onClick={togglePlayPause}
         >
           <FontAwesomeIcon icon={isPlaying ? faPause : faPlay} />

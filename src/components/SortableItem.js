@@ -2,34 +2,43 @@
 import React, { useState } from "react";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
+import musicIcon from "../assets/musicIcon.png";
 
-const SortableItem = ({ id, index, song, setSongId }) => {
-  const [clickDelay, setClickDelay] = useState(false); // State to handle click delay
-
-  const { attributes, listeners, setNodeRef, transform, transition, isDragging } =
-    useSortable({ id });
+const SortableItem = ({ id, index, song, setSongId, songId }) => {
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging,
+  } = useSortable({ id });
 
   const style = {
     transform: CSS.Transform.toString(transform),
     transition,
   };
 
-  const handleClick = (e) => {
+  const handlePointerUp = (e) => {
     e.preventDefault();
     setSongId(song._id);
   };
 
+  const isSelected = songId === song._id;
+
   return (
     <tr
-      onClick={handleClick}
+      onPointerUp={handlePointerUp}
       ref={setNodeRef}
       style={style}
       {...attributes}
       {...listeners}
-      className="hover:bg-[#640000] transition duration-200"
+      className={`transition duration-200 ${
+        isSelected ? "bg-[#640000]" : "hover:bg-[#640000]"
+      }`} 
     >
-      <td className="py-2 px-4 text-white">{index + 1}</td>
-      <td className="py-2 px-4 flex items-center space-x-2">
+      <td className="py-2 pr-2 text-white">{isSelected? <img src={musicIcon} alt="music-icon" className="w-6"/> :index + 1}</td>
+      <td className="py-2 px-2 flex items-center space-x-2">
         <img
           src={song.image}
           alt={song.title}
@@ -39,7 +48,7 @@ const SortableItem = ({ id, index, song, setSongId }) => {
       </td>
       <td className="py-2 px-4 text-white">{song.playing.toString()}</td>
       <td className="py-2 px-4 text-white">{song.time}</td>
-      <td className="py-2 px-4 text-white">{song.album}</td>
+      <td className="py-2 pl-4 text-white text-right">{song.album}</td>
     </tr>
   );
 };
