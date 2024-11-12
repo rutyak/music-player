@@ -8,9 +8,9 @@ const App = () => {
   const [openMenu, setOpenMenu] = useState(false);
   const [songId, setSongId] = useState(0);
 
-  function handleToggleMenu() {
-    setOpenMenu(!openMenu);
-  }
+  // function handleToggleMenu() {
+  //   setOpenMenu(!openMenu);
+  // }
 
   return (
     <div className="flex justify-center items-center w-[98vw] h-[100vh]">

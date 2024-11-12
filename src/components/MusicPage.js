@@ -19,7 +19,6 @@ import ArtistInfo from "./ArtistInfo";
 
 const MusicPage = ({ songId, setSongId }) => {
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
   const [songList, setSongList] = useState(songs);
 
 
@@ -33,7 +32,7 @@ const MusicPage = ({ songId, setSongId }) => {
     if (songs && songs.length > 0) {
       setLoading(false);
     }
-  }, [songs]);
+  }, []);
 
   function handleDragEnd(event) {
     const { active, over } = event;
@@ -58,9 +57,7 @@ const MusicPage = ({ songId, setSongId }) => {
         </div>
         {loading ? (
           <p className="w-full text-center text-white">Loading songs...</p>
-        ) : error ? (
-          <p className="text-red-500 text-center">{error}</p>
-        ) : (
+        ): (
           <div className="w-full px-20 overflow-x-auto">
             <DndContext
               sensors={sensors}

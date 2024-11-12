@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useCallback } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faBackward,
@@ -28,6 +28,41 @@ const MusicPlayer = ({ songId }) => {
     };
   }, []);
 
+  const playSong = useCallback(
+    (index) => {
+      if (soundRef.current) {
+        soundRef.current.stop();
+      }
+
+      const sound = new Howl({
+        src: [songs[index]?.song],
+        html5: true,
+        onplay: () => {
+          setDuration(sound.duration());
+          setIsPlaying(true);
+          intervalRef.current = setInterval(() => {
+            setCurrentTime(sound.seek());
+          }, 1000);
+        },
+        onend: () => nextSong(),
+      });
+
+      soundRef.current = sound;
+      sound.play();
+    },
+    [songs]
+  );
+
+  const nextSong = useCallback(() => {
+    clearInterval(intervalRef.current);
+    let nextIndex = isShuffle
+      ? Math.floor(Math.random() * songs.length)
+      : (songIndex + 1) % songs.length;
+    setSongIndex(nextIndex);
+    setCurrentTime(0);
+    playSong(nextIndex);
+  }, [isShuffle, songIndex, playSong, songs]);
+
   useEffect(() => {
     clearInterval(intervalRef.current);
 
@@ -36,29 +71,7 @@ const MusicPlayer = ({ songId }) => {
       playSong(filteredSong);
       setSongIndex(filteredSong);
     }
-  }, [songId]); // eslint-disable-next-line
-
-  const playSong = (index) => {
-    if (soundRef.current) {
-      soundRef.current.stop();
-    }
-
-    const sound = new Howl({
-      src: [songs[index]?.song],
-      html5: true,
-      onplay: () => {
-        setDuration(sound.duration());
-        setIsPlaying(true);
-        intervalRef.current = setInterval(() => {
-          setCurrentTime(sound.seek());
-        }, 1000);
-      },
-      onend: () => nextSong(),
-    });
-
-    soundRef.current = sound;
-    sound.play();
-  };
+  }, [songId, playSong]);
 
   // Play/Pause toggle
   const togglePlayPause = () => {
@@ -77,17 +90,6 @@ const MusicPlayer = ({ songId }) => {
         setIsPlaying(true);
       }
     }
-  };
-
-  // Forward button handler
-  const nextSong = () => {
-    clearInterval(intervalRef.current);
-    let nextIndex = isShuffle
-      ? Math.floor(Math.random() * songs.length)
-      : (songIndex + 1) % songs.length;
-    setSongIndex(nextIndex);
-    setCurrentTime(0);
-    playSong(nextIndex);
   };
 
   // Backward button handler

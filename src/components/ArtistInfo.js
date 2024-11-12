@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import bluetik from "../assets/bluetickImage.png";
 
 const ArtistInfo = () => {
