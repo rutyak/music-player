@@ -50,7 +50,7 @@ const MusicPlayer = ({ songId }) => {
       soundRef.current = sound;
       sound.play();
     },
-    [nextSong] 
+    [songs]
   );
 
   const nextSong = useCallback(() => {
@@ -61,7 +61,7 @@ const MusicPlayer = ({ songId }) => {
     setSongIndex(nextIndex);
     setCurrentTime(0);
     playSong(nextIndex);
-  }, [isShuffle, songIndex, playSong]); 
+  }, [isShuffle, songIndex, playSong, songs]);
 
   useEffect(() => {
     clearInterval(intervalRef.current);
