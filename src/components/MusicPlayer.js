@@ -6,7 +6,6 @@ import {
   faPause,
   faForward,
   faRandom,
-  faRedo,
   faRepeat,
 } from "@fortawesome/free-solid-svg-icons";
 import { Howl } from "howler";
@@ -37,9 +36,8 @@ const MusicPlayer = ({ songId }) => {
       playSong(filteredSong);
       setSongIndex(filteredSong);
     }
-  }, [songId]);
+  }, [songId]); // eslint-disable-next-line
 
-  // Initialize and play song
   const playSong = (index) => {
     if (soundRef.current) {
       soundRef.current.stop();
@@ -187,7 +185,6 @@ const MusicPlayer = ({ songId }) => {
           className={`text-white text-xl hover:text-red-300 ${
             isShuffle ? "text-red-300" : ""
           }`}
-          aria-label="Shuffle"
           onClick={toggleShuffle}
         >
           <FontAwesomeIcon icon={faRandom} />

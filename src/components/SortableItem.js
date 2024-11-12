@@ -1,5 +1,5 @@
 // SortableItem.js
-import React, { useState } from "react";
+import React from "react";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import musicIcon from "../assets/musicIcon.png";
@@ -11,7 +11,6 @@ const SortableItem = ({ id, index, song, setSongId, songId }) => {
     setNodeRef,
     transform,
     transition,
-    isDragging,
   } = useSortable({ id });
 
   const style = {
