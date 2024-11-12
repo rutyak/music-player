@@ -58,7 +58,7 @@ const MusicPage = ({ songId, setSongId }) => {
         {loading ? (
           <p className="w-full text-center text-white">Loading songs...</p>
         ): (
-          <div className="w-full px-20 overflow-x-auto">
+          <div className="w-full overflow-x-auto">
             <DndContext
               sensors={sensors}
               collisionDetection={closestCenter}
